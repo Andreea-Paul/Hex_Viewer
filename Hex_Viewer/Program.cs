@@ -28,11 +28,6 @@ namespace Hex_Viewer
 
                     counter++;
                     string counter_hex = Convert.ToString(counter, 16);
-                    while (counter_hex.Length < 6)
-                    {
-                        counter_hex = "0" + counter_hex;
-                    }
-
                     string hexString = BitConverter.ToString(bytes).Replace("-", " ");
                     
                     for (int i = 0; i < bytes.Length; i++)
@@ -46,7 +41,6 @@ namespace Hex_Viewer
                             line += (char)bytes[i];
                         }
                     }
-                    
                     Console.WriteLine($"{counter_hex}:  {hexString}  {line}");
                 }
                 while (batch == 16);
