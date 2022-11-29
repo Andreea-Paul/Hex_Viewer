@@ -13,7 +13,7 @@ namespace Hex_Viewer
     {
         static void Main(string[] args)
         {
-            string path = @"D:\carti\text.txt";
+            string path = "text.txt";
 
             using (FileStream file = File.OpenRead(path))
             {
@@ -26,9 +26,9 @@ namespace Hex_Viewer
                     string line=string.Empty;
                     batch = file.Read(bytes, 0, 16);
                     string hex_string=string.Empty;
-
                     counter++;
                     string counter_hex = Convert.ToString(counter, 16);
+                    
                     while (counter_hex.Length < 8)
                     {
                         counter_hex = "0" + counter_hex;
@@ -53,7 +53,7 @@ namespace Hex_Viewer
                         hex_string+= " ";
                     }
                     
-                    Console.WriteLine($"{counter_hex}:  {hex_string}  {line}");
+                    Console.WriteLine($"{counter_hex}:  {hex_string}  {line} ");
                 }
                 while (batch>0);
             }
