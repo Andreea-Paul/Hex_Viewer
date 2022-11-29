@@ -13,7 +13,7 @@ namespace Hex_Viewer
     {
         static void Main(string[] args)
         {
-            string path = @"D:\carti\progit.pdf";
+            string path = @"D:\carti\text.txt";
 
             using (FileStream file = File.OpenRead(path))
             {
@@ -25,13 +25,20 @@ namespace Hex_Viewer
                 {
                     string line=string.Empty;
                     batch = file.Read(bytes, 0, 16);
+                    string hex_string=string.Empty;
 
                     counter++;
                     string counter_hex = Convert.ToString(counter, 16);
-                    string hexString = BitConverter.ToString(bytes).Replace("-", " ");
-                    
-                    for (int i = 0; i < bytes.Length; i++)
+                    while (counter_hex.Length < 8)
                     {
+                        counter_hex = "0" + counter_hex;
+                    }
+
+
+                    for (int i = 0; i < batch; i++)
+                    {
+                        string hex = Convert.ToString(bytes[i], 16);
+                        hex_string += $" {hex}";
                         if (bytes[i] < 33 || bytes[i] > 126 && bytes[i] < 159)
                         {
                             line += ".";
@@ -41,9 +48,14 @@ namespace Hex_Viewer
                             line += (char)bytes[i];
                         }
                     }
-                    Console.WriteLine($"{counter_hex}:  {hexString}  {line}");
+                    while (hex_string.Length < 48)
+                    {
+                        hex_string+= " ";
+                    }
+                    
+                    Console.WriteLine($"{counter_hex}:  {hex_string}  {line}");
                 }
-                while (batch == 16);
+                while (batch>0);
             }
         }
     }
